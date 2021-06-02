@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "RemindMessage.git": {
+    "RemindMessage": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

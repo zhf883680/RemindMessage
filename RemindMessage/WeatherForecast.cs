@@ -1,6 +1,6 @@
 using System;
 
-namespace RemindMessage.git
+namespace RemindMessage
 {
     public class WeatherForecast
     {

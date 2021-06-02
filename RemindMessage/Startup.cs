@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RemindMessage.git
+namespace RemindMessage
 {
     public class Startup
     {
@@ -26,27 +26,30 @@ namespace RemindMessage.git
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RemindMessage.git", Version = "v1" });
-            });
+            services.AddControllers().AddInject();
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "RemindMessage", Version = "v1" });
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RemindMessage.git v1"));
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            //     app.UseSwagger();
+            //     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RemindMessage v1"));
+            // }
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
+            //如果 app.UseInject() 不输入参数，则默认地址为 /api，如果输入 string.Empty 则为 / 目录。如果输入任意字符串，则为 /任意字符串 目录。
+            // 添加这一行，如果是 MVC和API共存项目，无需添加 string.Empty
+            app.UseInject(string.Empty);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

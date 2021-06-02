@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RemindMessage.git.Controllers
+namespace RemindMessage.Controllers
 {
     [ApiController]
     [Route("[controller]")]

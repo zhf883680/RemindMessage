@@ -20,7 +20,7 @@ namespace RemindMessage.git
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.Inject().UseStartup<Startup>();
                 });
     }
 }
