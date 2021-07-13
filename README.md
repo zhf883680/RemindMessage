@@ -1,22 +1,25 @@
-# 消息推送系统 
-## 功能描述 
-类似手机提醒,代办功能  
-增加部分定时任务  
-通过 [Server酱](https://sct.ftqq.com/) ,邮箱,其他内容 进行消息推送  
-## 功能列表  
-### 后台功能模块  
-- [ ] 数据库  
-- [ ] 预览当前事件模块(可能有隐私暴露问题,暂且不支持)  
-- [ ] 定时任务模块  
-- [ ] Server酱消息推送模块  
-- [ ] 邮箱消息推送模块  
-- [ ] 其他配置  
-- [ ] Docker支持  
-### 前台功能
-- [ ] 添加消息推送  
-- [ ] 预览事件(可能有隐私暴露问题,暂且不支持)  
-## 运行环境 
-- Visual Studio 2019 16.8 +  
-- .NET 5 SDK +  
-- .Net Standard 2.1 +  
+# 说明  
+此项目为Web的模板文件  
+## 操作说明  
+下载Release版本 `WebApiTpl.zip`
+解压目录  
+例如目录为  ` "C:\Users\zhf\source\repos\WebApiTpl\WebApiTpl"` 
+## 安装  
+cmd运行  
+`dotnet new -i "C:\Users\zhf\source\repos\WebApiTpl\WebApiTpl"`
+## 使用  
+`dotnet new ctpl -n webName`  
+说明:  
+`ctpl`:模板的简写名称 在`WebApiTpl/.template.config/template.json`中配置  
+`webName`:在cmd目录下新建的项目的名称
+
+
+
+## 代码更新 
+将`WebApiTpl/content/`下面目录复制到压缩包  
+注意:删除bin,obj  
+
+
+
+
 

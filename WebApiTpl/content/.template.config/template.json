@@ -1,0 +1,13 @@
+{
+    "author": "zhf883680", 
+    "classifications": [ "Web/WebAPI" ], 
+    "name": "WebApiTplDemo",
+    "identity": "WebApiTplDemo", 
+    "shortName": "ctpl",
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "WebApiTpl",  
+    "preferNameDirectory": true 
+}
