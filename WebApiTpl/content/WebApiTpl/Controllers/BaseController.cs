@@ -69,6 +69,8 @@ namespace WebApiTpl.Controllers
         /// <param name="count"></param>
         /// <param name="data"></param>
         /// <returns></returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [NonAction]
         public IActionResult ReturnTableData(int code, string msg, int count, object data)
         {
             return Ok(new ResponseTableData

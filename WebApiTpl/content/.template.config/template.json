@@ -3,7 +3,7 @@
     "classifications": [ "Web/WebAPI" ], 
     "name": "WebApiTplDemo",
     "identity": "WebApiTplDemo", 
-    "shortName": "ctpl",
+    "shortName": "wtpl",
     "tags": {
       "language": "C#" ,
       "type":"project"

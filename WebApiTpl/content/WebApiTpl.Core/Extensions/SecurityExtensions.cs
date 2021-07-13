@@ -63,5 +63,62 @@ namespace WebApiTpl.Core.Extensions
             sha1.Clear();
             return retValue.ToUpper();
         }
+         /// <summary>
+        /// aes加密
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static object AESEncryption(string encryptStr, string key="aesKey")
+        {
+            try
+            {
+                //byte[] keyArray = Encoding.UTF8.GetBytes(Key);
+                byte[] keyArray = Convert.FromBase64String(key);
+                byte[] toEncryptArray = Encoding.UTF8.GetBytes(encryptStr);
+
+                RijndaelManaged rDel = new RijndaelManaged();
+                rDel.Key = keyArray;
+                rDel.Mode = CipherMode.ECB;
+                rDel.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform cTransform = rDel.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+                return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// AES 算法解密(ECB模式) 将密文base64解码进行解密，返回明文
+        /// </summary>
+        /// <param name="decryptStr">密文</param>
+        /// <param name="key">密钥</param>
+        /// <returns>明文</returns>
+        public static string AesDecrypt(string decryptStr, string key= "aesKey")
+        {
+            try
+            {
+                //byte[] keyArray = Encoding.UTF8.GetBytes(Key);
+                byte[] keyArray = Convert.FromBase64String(key);
+                byte[] toEncryptArray = Convert.FromBase64String(decryptStr);
+
+                RijndaelManaged rDel = new RijndaelManaged();
+                rDel.Key = keyArray;
+                rDel.Mode = CipherMode.ECB;
+                rDel.Padding = PaddingMode.PKCS7;
+
+                ICryptoTransform cTransform = rDel.CreateDecryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+                return Encoding.UTF8.GetString(resultArray);//  UTF8Encoding.UTF8.GetString(resultArray);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }

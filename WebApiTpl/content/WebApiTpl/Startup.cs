@@ -171,18 +171,19 @@ namespace WebApiTpl
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "接口V1"); });
-#if DEBUG
-            //app.UseHttpsRedirection();
-            app.UseCors(options =>
-            {
-                options.WithOrigins("http://localhost:8080");
-                options.AllowAnyHeader();
-                options.AllowAnyMethod();
-                options.AllowCredentials();
-            });
-#endif
             app.UseRouting();
             app.UseSpaStaticFiles();
+            //调试接口
+            if (env.IsDevelopment())
+            {
+                app.UseCors(options =>
+                {
+                    options.WithOrigins("http://localhost:8080");
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                    options.AllowCredentials();
+                });
+            };
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -190,21 +191,14 @@ namespace WebApiTpl
             {
                 endpoints.MapControllers();
             });
-#if !DEBUG
-            app.UseSpa(spa =>
+            //建议调试时候 前端单独运行 增加调试效率
+            if (!env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                    spa.Options.SourcePath = "ClientApp";
-                else
-                    spa.Options.SourcePath = "dist";
-
-                if (env.IsDevelopment())
+                app.UseSpa(spa =>
                 {
-                    spa.UseVueCli(npmScript: "serve");
-                }
-
-            });
-#endif
+                    spa.Options.SourcePath = "dist";
+                });
+            }
         }
     }
 }
