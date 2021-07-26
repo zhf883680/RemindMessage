@@ -120,5 +120,34 @@ namespace WebApiTpl.Core.Extensions
                 return null;
             }
         }
+        /// <summary>
+        /// 获取到文件的hash值 
+        /// </summary>
+        /// <param name="filepath"></param>
+        /// <returns></returns>
+        public static string FileToMD5(string filepath)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider oMD5 =
+                new System.Security.Cryptography.MD5CryptoServiceProvider();
+            try
+            {
+                var stream = new FileStream(filepath, FileMode.Open);
+                byte[] hashByte = oMD5.ComputeHash(stream);
+                string retValue = "";
+                for (int i = 0; i < hashByte.Length; i++)
+                {
+                    retValue += hashByte[i].ToString("X2");
+                }
+                stream.Close();
+                oMD5 = null;
+                return retValue.ToUpper();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+            }
+
+            return null;
+        }
     }
 }
