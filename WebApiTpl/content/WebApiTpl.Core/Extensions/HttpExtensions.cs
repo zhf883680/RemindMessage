@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace WebApiTpl.Core.Extensions
@@ -61,6 +62,27 @@ namespace WebApiTpl.Core.Extensions
             }
 
             return "error";
+        }
+        /// <summary>
+        /// tcp连接测试
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="defaultPort"></param>
+        /// <returns></returns>
+        public static bool TcpConnect(string ip, string defaultPort)
+        {
+            var ipAddress = System.Net.IPAddress.Parse(ip);
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                socket.Connect(ipAddress, Convert.ToInt32(defaultPort));
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
