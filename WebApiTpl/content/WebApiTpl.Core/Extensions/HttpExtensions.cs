@@ -3,6 +3,8 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace WebApiTpl.Core.Extensions
@@ -84,5 +86,62 @@ namespace WebApiTpl.Core.Extensions
 
             return true;
         }
+        
+        #region 获取mac地址
+
+        [DllImport("Iphlpapi.dll")]
+        static extern int SendARP(Int32 DestIP, Int32 SrcIP, ref Int64 MacAddr, ref Int32 PhyAddrLen);
+
+        [DllImport("Ws2_32.dll")]
+        static extern Int32 inet_addr(string ipaddr);
+
+        /// <summary>
+        /// 获取mac地址
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static string GetMac(string ip)
+        {
+            if (ip == "::1" || ip == "127.0.0.1")
+            {
+                return "";
+            }
+            else if (ip.StartsWith("::ffff:"))
+            {
+                ip = ip.Substring(7);
+            }
+
+            StringBuilder macAddress = new StringBuilder();
+            try
+            {
+                Int32 remote = inet_addr(ip);
+                Int64 macInfo = new Int64();
+                Int32 length = 6;
+                SendARP(remote, 0, ref macInfo, ref length);
+                string temp = Convert.ToString(macInfo, 16).PadLeft(12, '0').ToUpper();
+                int x = 12;
+                for (int i = 0; i < 6; i++)
+                {
+                    if (i == 5)
+                    {
+                        macAddress.Append(temp.Substring(x - 2, 2));
+                    }
+                    else
+                    {
+                        macAddress.Append(temp.Substring(x - 2, 2) + "-");
+                    }
+
+                    x -= 2;
+                }
+            }
+            catch
+            {
+                return "Error";
+            }
+
+            return macAddress.ToString();
+        }
+
+        #endregion
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -31,6 +30,9 @@ namespace WebApiTpl.Core.Extensions
         }
     }
 
+    /// <summary>
+    /// 时间处理 防止前台出现2019-01-01T00:00:00
+    /// </summary>
     public class DatetimeJsonConverter : JsonConverter<DateTime>
     {
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
