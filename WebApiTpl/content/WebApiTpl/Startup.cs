@@ -146,7 +146,7 @@ namespace WebApiTpl
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "SDC 5.0接口",
+                    Title = "Web 5.0接口",
                     Description = @"除GetToken接口外 所有接口都需要添加Http头: Authorization:Bearer {token}"
                 });
 
